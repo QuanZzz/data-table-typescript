@@ -1,12 +1,25 @@
-import PropTypes from "prop-types";
+import { FC } from "react";
 import cx from "classnames";
 
-const SortDropdown = ({className, setSortBy, columns}) => {
-  return(
+interface Column {
+  key: string;
+  header: string;
+}
+
+interface SortDropdownProps {
+  className?: string;
+  setSortBy: (sortBy: string) => void;
+  columns: Column[];
+}
+
+const SortDropdown: FC<SortDropdownProps> = ({ 
+  className = "", 
+  setSortBy = () => undefined, 
+  columns = []
+}) => {
+  return (
     <div className={cx("flex sm:hidden py-1", className)}>
-      <label htmlFor="sortByDropdown">
-        Sort by:
-      </label>
+      <label htmlFor="sortByDropdown">Sort by:</label>
       <select
         name="sortBy"
         id="sortByDropdown"
@@ -21,19 +34,7 @@ const SortDropdown = ({className, setSortBy, columns}) => {
         ))}
       </select>
     </div>
-  )
-}
-
-SortDropdown.propTypes = {
-  className: PropTypes.string,
-  setSortBy: PropTypes.func,
-  columns: PropTypes.array
-}
-
-SortDropdown.defaultProps = {
-  className: "",
-  setSortBy: () => {},
-  columns: null
-}
+  );
+};
 
 export default SortDropdown;
